@@ -5,9 +5,8 @@ from unicodedata import category
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.viewsets import (
-    ViewSet,
-)  # https://testdriven.io/blog/drf-views-part-3/
+from rest_framework.viewsets import \
+    ViewSet  # https://testdriven.io/blog/drf-views-part-3/
 
 from .models import Category
 from .serializers import CategorySerializer
@@ -48,7 +47,11 @@ class CategoryViewSet(ViewSet):
         endpoint: /blog/category/<pk>/
         Parameters:
             id : passing as querystring
-            JSON data: { "name":<category>, "slug":<slug of category name> }
+            JSON data: {
+                "name":<category>,
+                "slug":<slug of category name>,
+                "parent": <id>
+                }
         """
         if pk is None:
             return Response(
@@ -77,10 +80,9 @@ class CategoryViewSet(ViewSet):
         )  # having object passed means updating
 
         if serializer.is_valid():
-            # validated_data['parent'] needs serialized data, so I used this line
             serializer.validated_data["parent"] = CategorySerializer(
                 parent_category
-            ).data
+            ).data  # needs serialized data, so I used this line
             # print("Validated data:")
             # print(serializer.validated_data)
 

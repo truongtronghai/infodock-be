@@ -12,6 +12,9 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = ["id", "name", "slug", "parent"]
         depth = 3
 
+    # def validate(self, attrs):
+    #     return attrs
+
     def update(self, instance, validated_data):
         """
         Because foreign related field is an object of Cateory, we need to override this method to process serializer's save()

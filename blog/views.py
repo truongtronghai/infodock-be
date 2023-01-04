@@ -144,3 +144,4 @@ class CategoryViewSet(ViewSet):
 class PostApiView(APIView):
     def get(self, request):
         return Response(status=status.HTTP_200_OK)
+    

@@ -66,25 +66,19 @@ class CategoryViewSet(ViewSet):
                     {"message": "No category found for updating"},
                     status=status.HTTP_404_NOT_FOUND,
                 )
-        # get the parent category for using later
-        try:
-            parent_category = Category.objects.get(pk=request.data.get("parent"))
-        except Category.DoesNotExist:
-            return Response(
-                {"message": "No parent category found"},
-                status=status.HTTP_404_NOT_FOUND,
-            )
 
         serializer = CategorySerializer(
             category, data=request.data
         )  # having object passed means updating
 
         if serializer.is_valid():
-            serializer.validated_data["parent"] = CategorySerializer(
-                parent_category
-            ).data  # needs serialized data, so I used this line
-            # print("Validated data:")
-            # print(serializer.validated_data)
+            # get the parent category to append to validated_data
+            try:
+                serializer.validated_data["parent"] = CategorySerializer(
+                    Category.objects.get(pk=request.data.get("parent"))
+                ).data  # needs serialized data, so I used this line
+            except Category.DoesNotExist:
+                serializer.validated_data["parent"] = None
 
             serializer.save()  # overridden in CategorySerializer's update()
             return Response(

@@ -20,9 +20,10 @@ class CategorySerializer(serializers.ModelSerializer):
         Because foreign related field is an object of Cateory, we need to override this method to process serializer's save()
         """
         try:
-            # print(validated_data.get('parent'))
-            fk_category = Category.objects.get(pk=validated_data.get("parent")["id"])
-
+            fk_category = None
+            if(validated_data.get("parent") is not None):
+                fk_category = Category.objects.get(pk=validated_data.get("parent")["id"])
+                
             instance.name = str(validated_data.get("name"))
             instance.slug = str(validated_data.get("slug"))
             instance.parent = fk_category

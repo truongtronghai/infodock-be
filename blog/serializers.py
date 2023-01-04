@@ -1,9 +1,6 @@
-from dataclasses import fields
-
-from pyexpat import model
 from rest_framework import serializers
 
-from .models import Category
+from .models import Category, Post
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -15,20 +12,12 @@ class CategorySerializer(serializers.ModelSerializer):
     # def validate(self, attrs):
     #     return attrs
 
-    def update(self, instance, validated_data):
-        """
-        Because foreign related field is an object of Cateory, we need to override this method to process serializer's save()
-        """
-        try:
-            fk_category = None
-            if(validated_data.get("parent") is not None):
-                fk_category = Category.objects.get(pk=validated_data.get("parent")["id"])
-                
-            instance.name = str(validated_data.get("name"))
-            instance.slug = str(validated_data.get("slug"))
-            instance.parent = fk_category
-            instance.save()  # REMEMBER to save instance to update record of instance
-        except Category.DoesNotExist:
-            pass
+    # def update(self, instance, validated_data):
+    #     # instance is object accessing this method
+    #     return instance
 
-        return instance
+
+class PostSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Post
+        fields = "__all__"

@@ -11,7 +11,7 @@ class Category(models.Model):
         null=True,
         blank=True,
         default=None,
-        on_delete=models.DO_NOTHING,
+        on_delete=models.SET_NULL,
         # related_name="parent_category", # comment this to use category_set. If related_name existed, category_set is unknown and we have to use related_name to access reverse relation
     )
 
@@ -38,7 +38,7 @@ class Post(models.Model):
         blank=False,
         default=1,
         related_name="posts_in_category",
-        on_delete=models.DO_NOTHING,
+        on_delete=models.SET_DEFAULT,
     )
 
     title = models.CharField(

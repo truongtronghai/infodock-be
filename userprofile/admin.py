@@ -10,7 +10,7 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display = ("name","slug","parent")
 
 class PostAdmin(admin.ModelAdmin):
-    pass
+    list_display = ("title","slug","category")
 
 admin.site.register(UserProfile,UserProfileAdmin)
 admin.site.register(Category,CategoryAdmin)

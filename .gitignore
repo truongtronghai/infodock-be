@@ -3,6 +3,8 @@
 *.rest
 venv/
 temp.py
+media/
+upload/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

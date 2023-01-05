@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path, re_path
 from drf_yasg import openapi  # need for DRF-YASG
@@ -44,4 +46,8 @@ urlpatterns = [
     re_path(
         r"^redoc/$", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"
     ),
+    # CKEditor
+    re_path(r'^ckeditor/', include('ckeditor_uploader.urls')),
 ]
+# used for serving 
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

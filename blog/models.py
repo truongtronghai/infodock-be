@@ -1,3 +1,4 @@
+from ckeditor_uploader.fields import RichTextUploadingField
 from datetime import datetime
 
 from django.contrib.auth.models import User
@@ -49,7 +50,7 @@ class Post(models.Model):
     )
     slug = models.SlugField(max_length=200, null=False, blank=False)
     excerpt = models.CharField(max_length=200, null=True, blank=True)
-    content = models.TextField(null=True, blank=True)
+    content = RichTextUploadingField(null=True, blank=True)
     fig = models.ImageField(verbose_name="feature photo of post", null=True, blank=True)
     created_date = models.DateTimeField(default=datetime.now())
     edited_date = models.DateTimeField(default=datetime.now())

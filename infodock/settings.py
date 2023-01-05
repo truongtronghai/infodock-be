@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     # 3rd party
     "rest_framework",
     "drf_yasg",
+    'ckeditor', 'ckeditor_uploader',
 ]
 
 MIDDLEWARE = [
@@ -134,6 +135,10 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+# Media and upload files
+MEDIA_ROOT = "media/"
+MEDIA_URL = "media/"
+
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticated",
@@ -156,4 +161,13 @@ SIMPLE_JWT = {
     "BLACKLIST_AFTER_ROTATION": False,
     "UPDATE_LAST_LOGIN": False,
     "AUTH_HEADER_TYPES": ("Bearer",),
+}
+
+CKEDITOR_UPLOAD_PATH = "media/upload/"
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'height': 300,
+        'width': 500,
+    },
 }

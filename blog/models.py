@@ -1,6 +1,6 @@
-from ckeditor_uploader.fields import RichTextUploadingField
 from datetime import datetime
 
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.contrib.auth.models import User
 from django.db import models
 
@@ -41,7 +41,7 @@ class Post(models.Model):
         null=False,
         blank=False,
         default=1,
-        related_name="posts_in_category",
+        # related_name="posts_in_category", # comment this to use post_set. If related_name existed, post_set is unknown and we have to use related_name to access reverse relation
         on_delete=models.SET_DEFAULT,
     )
 

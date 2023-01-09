@@ -26,7 +26,7 @@ class ReadOnlyAllow(BasePermission):
 
 
 class CategoryViewSet(ViewSet):
-    permission_classes = [IsAuthenticated | ReadOnlyAllow]
+    permission_classes = [IsAuthenticated]
     queryset = Category.objects.all()
 
     def list(self, request):

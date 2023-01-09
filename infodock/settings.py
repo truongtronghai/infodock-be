@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     # 3rd party
     "rest_framework",
     "drf_yasg",
-    'ckeditor', 'ckeditor_uploader',
+    "ckeditor",
+    "ckeditor_uploader",
 ]
 
 MIDDLEWARE = [
@@ -147,8 +148,8 @@ REST_FRAMEWORK = {
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
     # for pagination in rest_framework
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 5,
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 5,
 }
 
 SWAGGER_SETTINGS = {
@@ -168,9 +169,21 @@ SIMPLE_JWT = {
 
 CKEDITOR_UPLOAD_PATH = "media/upload/"
 CKEDITOR_CONFIGS = {
-    'default': {
-        'toolbar': 'full',
-        'height': 300,
-        'width': 500,
+    "default": {
+        "toolbar": "full",
+        "height": 300,
+        "width": 500,
     },
 }
+
+# Google 0Auth2
+GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID")
+GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET")
+# This is the authorize URL we'll send the user to first to get their authorization
+GOOGLE_AUTH_URI = os.environ.get("GOOGLE_AUTH_URI")
+# This is Google's OpenID Connect token endpoint
+GOOGLE_TOKEN_URI = os.environ.get("GOOGLE_TOKEN_URI")
+# This is URI to get profile after having access token
+GOOGLE_GET_PROFILE_URL = os.environ.get("GOOGLE_GET_PROFILE_URL")
+# This is URI to check id_token
+GOOGLE_ID_TOKEN_INFO_URL = os.environ.get("GOOGLE_ID_TOKEN_INFO_URL")

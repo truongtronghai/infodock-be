@@ -5,8 +5,7 @@ from django.urls import include, path, re_path
 from drf_yasg import openapi  # need for DRF-YASG
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions, routers
-from rest_framework_simplejwt.views import (TokenObtainPairView,
-                                            TokenRefreshView)
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -28,6 +27,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("user-profile/", include("userprofile.urls")),
     path("blog/", include("blog.urls")),
+    path("googleoauth/", include("googleoauth.urls")),
     path("rest-auth/", include("rest_framework.urls")),
     # SimpleJWT
     path("token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
@@ -47,7 +47,7 @@ urlpatterns = [
         r"^redoc/$", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"
     ),
     # CKEditor
-    re_path(r'^ckeditor/', include('ckeditor_uploader.urls')),
+    re_path(r"^ckeditor/", include("ckeditor_uploader.urls")),
 ]
-# used for serving 
+# used for serving
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

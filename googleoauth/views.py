@@ -25,7 +25,7 @@ def get_google_oauth2_tokens(code, redirect_uri, *args):
     response = requests.post(settings.GOOGLE_TOKEN_URI, data)
     if not response.ok:
         raise ValidationError("Failed to obtain access token from Google.")
-    
+
     return response.json()
 
 
@@ -51,12 +51,14 @@ def get_tokens_for_user(user):
 
 
 def google_validate_id_token(id_token=None):
-    response = requests.get(settings.GOOGLE_ID_TOKEN_INFO_URL,params={"id_token": id_token})
+    response = requests.get(
+        settings.GOOGLE_ID_TOKEN_INFO_URL, params={"id_token": id_token}
+    )
     if not response.ok:
-        raise ValidationError('Google id_token is invalid.')
-    
+        raise ValidationError("Google id_token is invalid.")
+
     # The final step to authenticate this request is by comparing the aud (short for audience) from the Google response with the GOOGLE_CLIENT_ID configured in your settings.py
-    audience = response.json()['aud']
+    audience = response.json()["aud"]
     if audience != settings.GOOGLE_CLIENT_ID:
         return False
     return True
@@ -85,9 +87,9 @@ class GoogleAuthApiView(APIView):
                 redirect_uri="http://localhost:8000/googleoauth/v1/auth/login/google/",
             )
 
-            #print(result_tokens)
+            # print(result_tokens)
             ### Use this code snippet to get id token for test method post. Comment it for operating normally
-            #return Response(result_tokens, status=status.HTTP_200_OK)
+            # return Response(result_tokens, status=status.HTTP_200_OK)
             ###
 
             google_user_profile = get_google_profile_info(
@@ -123,7 +125,7 @@ class GoogleAuthApiView(APIView):
                 "Failed to obtain code from Google API for getting access token"
             )
 
-    def post(self, request,*args, **kwargs):
+    def post(self, request, *args, **kwargs):
         """
         Description: check ID token from Google Auth to decide to allow user login to system. If email of user existed in system, just log in. If not, creating new one and log in
 
@@ -131,11 +133,11 @@ class GoogleAuthApiView(APIView):
         Post data: { "email": <username (email) of user in Google>}
         """
         google_auth_token_id_from_fe = request.headers.get("Authorization")
-        
+
         if google_auth_token_id_from_fe is None:
             return Response(
-                {"detail":"Id Token does not exist"},
-                status=status.HTTP_406_NOT_ACCEPTABLE
+                {"detail": "Id Token does not exist"},
+                status=status.HTTP_406_NOT_ACCEPTABLE,
             )
 
         try:
@@ -165,6 +167,6 @@ class GoogleAuthApiView(APIView):
                 )
         except ValidationError:
             return Response(
-                {"detail":"Id Token is validated failed by Google Auth"},
-                status=status.HTTP_406_NOT_ACCEPTABLE
+                {"detail": "Id Token is validated failed by Google Auth"},
+                status=status.HTTP_406_NOT_ACCEPTABLE,
             )

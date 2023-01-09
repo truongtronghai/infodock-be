@@ -27,6 +27,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("user-profile/", include("userprofile.urls")),
     path("blog/", include("blog.urls")),
+    path("user/device-token/", include("fcm.urls")),
     path("googleoauth/", include("googleoauth.urls")),
     path("rest-auth/", include("rest_framework.urls")),
     # SimpleJWT

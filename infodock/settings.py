@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     # project
     "userprofile",
     "blog",
+    "googleoauth",
+    "fcm",
     # 3rd party
     "rest_framework",
     "drf_yasg",

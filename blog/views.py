@@ -80,7 +80,7 @@ class CategoryViewSet(ViewSet):
                         {"message": "Parent ID is not existed"},
                         status=status.HTTP_404_NOT_FOUND,
                     )
-            print(serializer.validated_data)
+            # print(serializer.validated_data)
             serializer.save()
             return Response({"message": "Category created"}, status=status.HTTP_200_OK)
         else:
@@ -213,7 +213,9 @@ class ListPostApiView(APIView):
                 "next_page": paginator.get_next_link(),
                 "previous_page": paginator.get_previous_link(),
                 "current_page": request.GET.get(paginator.page_query_param),
-                "results": PostInCategorySerializer(result_page, many=True).data,
+                "results": PostInCategorySerializer(
+                    result_page, many=True
+                ).data,  # when result_page has only 1 record, it can warn "UnorderedObjectListWarning: Pagination may yield inconsistent results with an unordered object_list"
             }
             return Response(data, status=status.HTTP_200_OK)
         except Category.DoesNotExist:

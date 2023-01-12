@@ -15,6 +15,9 @@ class FcmDeviceTokenApiView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
+        if not request.user.is_staff:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
+
         serializer = FcmRegistrationIdSerializer(data=request.data)
         if serializer.is_valid():
             try:
@@ -39,7 +42,9 @@ class FcmDeviceTokenApiView(APIView):
                 )
             except IntegrityError:
                 return Response(
-                    {"detail": "Registration ID exists. Cannot save duplicate ids"},
+                    {
+                        "detail": "Registration ID of this user has existed. Cannot save duplicate ids for one user"
+                    },
                     status=status.HTTP_400_BAD_REQUEST,
                 )
         else:

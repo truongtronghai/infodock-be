@@ -24,7 +24,10 @@ def get_google_oauth2_tokens(code, redirect_uri, *args):
     }
     response = requests.post(settings.GOOGLE_TOKEN_URI, data)
     if not response.ok:
-        raise ValidationError("Failed to obtain access token from Google.")
+        return Response(
+            {"detail": "Failed to obtain access token from Google."},
+            status=status.HTTP_401_UNAUTHORIZED,
+        )
 
     return response.json()
 
@@ -34,7 +37,11 @@ def get_google_profile_info(access_token=""):
         settings.GOOGLE_GET_PROFILE_URL + "?access_token=" + access_token
     )
     if not response.ok:
-        raise ValidationError("Failed to get user profile from Google.")
+        return Response(
+            {"detail": "Failed to get user profile from Google."},
+            status=status.HTTP_401_UNAUTHORIZED,
+        )
+
     return response.json()
 
 
@@ -81,6 +88,7 @@ class GoogleAuthApiView(APIView):
 
         # get the "code" in result of Google return
         code = request.GET.get("code")
+        # print(code)
         if code is not None:
             result_tokens = get_google_oauth2_tokens(
                 code=code,
@@ -88,7 +96,7 @@ class GoogleAuthApiView(APIView):
             )
 
             # print(result_tokens)
-            ### Use this code snippet to get id token for test method post. Comment it for operating normally
+            ### Use this code snippet to get "id token" for test method post. Comment it for operating normally
             # return Response(result_tokens, status=status.HTTP_200_OK)
             ###
 
@@ -121,8 +129,11 @@ class GoogleAuthApiView(APIView):
             tokens = get_tokens_for_user(user)
             return Response(tokens, status=status.HTTP_200_OK)
         else:
-            raise ValidationError(
-                "Failed to obtain code from Google API for getting access token"
+            return Response(
+                {
+                    "detail": "Failed to obtain code from Google API for getting access token"
+                },
+                status=status.HTTP_401_UNAUTHORIZED,
             )
 
     def post(self, request, *args, **kwargs):

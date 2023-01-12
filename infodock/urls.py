@@ -29,6 +29,7 @@ urlpatterns = [
     path("blog/", include("blog.urls")),
     path("user/device-token/", include("fcm.urls")),
     path("googleoauth/", include("googleoauth.urls")),
+    path("chart/", include("chart.urls")),
     path("rest-auth/", include("rest_framework.urls")),
     # SimpleJWT
     path("token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),

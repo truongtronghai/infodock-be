@@ -49,11 +49,13 @@ INSTALLED_APPS = [
     "drf_yasg",
     "ckeditor",
     "ckeditor_uploader",
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -189,3 +191,7 @@ GOOGLE_TOKEN_URI = os.environ.get("GOOGLE_TOKEN_URI")
 GOOGLE_GET_PROFILE_URL = os.environ.get("GOOGLE_GET_PROFILE_URL")
 # This is URI to check id_token
 GOOGLE_ID_TOKEN_INFO_URL = os.environ.get("GOOGLE_ID_TOKEN_INFO_URL")
+
+CORS_ALLOWED_ORIGINS = [  # https://www.django-rest-framework.org/topics/ajax-csrf-cors/
+    "http://localhost:5500",
+]

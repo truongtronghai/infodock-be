@@ -1,7 +1,9 @@
-from rest_framework.test import APITestCase, APIClient
+import json
+
+import requests
 from django.contrib.auth.models import User
 from rest_framework import status
-import requests, json
+from rest_framework.test import APIClient, APITestCase
 from rest_framework_simplejwt.tokens import RefreshToken
 
 

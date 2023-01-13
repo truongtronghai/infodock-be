@@ -1,11 +1,13 @@
-from rest_framework.test import APITestCase, APIClient
-from django.contrib.auth.models import User
-from .models import Post, Category
-from rest_framework import status
-import requests
-from rest_framework_simplejwt.tokens import RefreshToken
 import itertools
+
+import requests
+from django.contrib.auth.models import User
 from django.utils import timezone
+from rest_framework import status
+from rest_framework.test import APIClient, APITestCase
+from rest_framework_simplejwt.tokens import RefreshToken
+
+from .models import Category, Post
 
 
 class BlogTest(APITestCase):

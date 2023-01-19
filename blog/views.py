@@ -2,16 +2,20 @@ from collections import defaultdict
 
 from rest_framework import status
 from rest_framework.pagination import PageNumberPagination
-from rest_framework.permissions import (SAFE_METHODS, AllowAny, BasePermission,
-                                        IsAuthenticated)
+from rest_framework.permissions import (
+    SAFE_METHODS,
+    AllowAny,
+    BasePermission,
+    IsAuthenticated,
+)
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.viewsets import \
-    ViewSet  # https://testdriven.io/blog/drf-views-part-3/
+from rest_framework.viewsets import (
+    ViewSet,
+)  # https://testdriven.io/blog/drf-views-part-3/
 
 from .models import Category, Post
-from .serializers import (CategorySerializer, PostInCategorySerializer,
-                          PostSerializer)
+from .serializers import CategorySerializer, PostInCategorySerializer, PostSerializer
 
 # Create your views here.
 
@@ -189,7 +193,7 @@ class ListPostApiView(APIView):
         """
         Description: get list of posts in specific category
         method: GET
-        endpoint: /blog/posts/<slug>/?page=<number>
+        endpoint: /blog/posts/<category slug>/?page=<number>
         Note: if page is invalid, error code is HTTP_404_NOT_FOUND and result is {"detail":"Invalid page"}
         """
         if slug == None:

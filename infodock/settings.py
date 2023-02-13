@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "blog",
     "googleoauth",
     "fcm",
+    "crop_image",
     # 3rd party
     "rest_framework",
     "drf_yasg",

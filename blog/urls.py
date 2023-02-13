@@ -1,8 +1,12 @@
 from django.urls import include, path
 from rest_framework import routers
 
-from .views import (CategoryViewSet, DetailPostApiView, ListPostApiView,
-                    SearchPostApiView)
+# from .views import (CategoryViewSet, DetailPostApiView, ListPostApiView,
+#                     SearchPostApiView)
+from .views.categoryViewset import CategoryViewSet
+from .views.detailPostApiview import DetailPostApiView
+from .views.listPostApiview import ListPostApiView
+from .views.searchPostApiview import SearchPostApiView
 
 router = routers.DefaultRouter()
 # register router for Category viewset

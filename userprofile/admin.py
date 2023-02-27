@@ -20,3 +20,12 @@ class PostAdmin(admin.ModelAdmin):
 admin.site.register(UserProfile, UserProfileAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Post, PostAdmin)
+
+# register all models
+# import django.apps import apps
+
+# for m in apps.get_models():
+#     try:
+#         admin.site.register(m)
+#     except admin.sites.AlreadyRegistered:
+#         pass
